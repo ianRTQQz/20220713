@@ -9,6 +9,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>Hello, world!</title>
+
+    <script>
+      function add_pic(){
+        var addimg = document.createElement("img");
+        
+      }
+
+      function delete_pic(){
+
+      }
+    </script>
   </head>
   <body>
     <!-- ======= Top Bar ======= -->
@@ -124,16 +135,40 @@
   //網頁加載執行方法
 
   //新增圖片方法
-
+  var count = 0;
   function add_pic(){
-
+    count++;
+    $("#addpic").append('\
+      <div id="d'+count+'">\
+        <input id="selsct_file" onchange="show_preview(this)" type="file" accept="image/jpeg, image/gif, image/png">\
+        <img src="#" class="pimg" id="pic">\
+      </div>\
+    ');
   }
 
   //圖片預覽
+  function show_preview(input){
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        var img = $(input).parent().find('img');
+        
+        img.attr('src', e.target.result).width(150).height(200);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
 
   //刪除圖片
   function delete_pic(){
-
+    if(count == 0){
+      return;
+    }
+    var re_id = '#d'+count;
+    $(re_id).remove();
+    count--;
   }
 
 </script>
